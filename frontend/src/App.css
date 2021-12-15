@@ -1,0 +1,670 @@
+.headerWrapper {
+  border-bottom: 1px solid black;
+  display: flex;
+  padding: 0px 20px;
+  align-items: center;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.headerWrapper .search {
+  width: 100%;
+}
+
+.headerWrapper .search input {
+  width: -webkit-fill-available;
+  padding: 10px 0px;
+  border-radius: 10px;
+  font-size: 19px;
+  margin: 0px 20px;
+  outline: none;
+  border: 1px solid black;
+  padding-left: 10px;
+}
+
+.headerWrapper .search input:focus {
+  outline: none;
+}
+
+
+.card.afterFirst .inputBox input.success,
+.card.afterFirst .inputBox textarea.success {
+  border: 2px solid #2ecc71;
+}
+
+.card.afterFirst .inputBox input.error,
+.card.afterFirst .inputBox textarea.error {
+  border: 2px solid #f43648;
+}
+
+
+.headerWrapper .registrationNavigation {
+  display: flex;
+  margin-left: auto;
+  flex-wrap: wrap;
+  max-width: 182px;
+  width: 100%;
+}
+
+.headerWrapper .registrationNavigation div {
+  white-space: nowrap;
+  margin: 0 10px;
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.headerWrapper .registrationNavigation a {
+  text-decoration: none;
+}
+
+.headerTitle {
+  max-width: 209px;
+  width: 100%;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.headerWrapper .registrationNavigation .signIn {
+  background: #2ecc71;
+}
+
+.headerWrapper .registrationNavigation .signUp {
+  background: #457FAB;
+}
+
+.registrationWrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  max-width: 400px;
+  width: 100%;
+}
+
+.card form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card form h3 {
+  font-size: 2.5em;
+  color: black;
+  text-align: center;
+  margin-top: 0;
+}
+
+.card .inputBox, .signUpForm .inputBox {
+  position: relative;
+  width: 100%;
+  margin-bottom: 2.4cm;
+}
+
+
+.card .inputBox input {
+  margin-bottom: 40px;
+  padding: 10px;
+  outline: none;
+  font-size: 18px;
+  border: 1px solid black;
+  position: absolute;
+  width: -webkit-fill-available;
+  background: transparent;
+  background-color: white;
+}
+
+
+.card .inputBox span {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  padding: 10px;
+  font-size: 18px;
+  transition: 0.5s;
+  font-weight: 300;
+  pointer-events: none;
+}
+
+.card .inputBox p {
+  position: absolute;
+  top: 40px;
+  color: red;
+  margin: 7px 0px 0px 0px;
+  font-size: 15px;
+}
+
+.card .buttons input[type="submit"] {
+  background-color: #F16355;
+  border: none;
+  color: white;
+  height: 50px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: 16px;
+  padding: 0;
+  font-weight: 600;
+}
+
+.card .inputBox span {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  padding: 10px;
+  font-size: 18px;
+  transition: 0.5s;
+  font-weight: 300;
+  pointer-events: none;
+}
+
+
+.card .inputBox input:focus~span, .card .inputBox.active span, .card .inputBox textarea:focus~span {
+  transform: translateX(-10px) translateY(-35px);
+}
+
+.menuWrapper {
+  position: fixed;
+  left: 0px;
+  width: 250px;
+  height: 100%;
+  background: #457FAB;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.menuWrapper .img {
+  height: 200px;
+  width: 200px;
+}
+
+.menuWrapper .img img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.menuNavigation ul {
+  list-style-type: none;
+  width: 100%;
+  padding: 0px;
+}
+
+
+.menuNavigation ul li {
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  font-size: 20px;
+  margin: 20px 0px;
+  border-radius: 15px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menuNavigation ul li div {
+  margin: 0px 10px;
+  font-weight: 600;
+  color: white;
+}
+
+.realIcon {
+  font-size: 35px;
+  color: black;
+  cursor: pointer;
+}
+
+.menuNavigation {
+  width: 200px;
+}
+
+.mainContent {
+  position: relative;
+  left: 250px;
+  width: calc(100% - 250px);
+  height: calc(100vh - 65px);
+}
+
+.mainContent.middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editAccount, .addAccount, .addCourse {
+  max-width: 400px;
+  width: 100%;
+}
+
+.dashboard, .editAccount, .addAccount {
+  margin: 0px 50px 50px 50px;
+  padding-top: 50px;
+}
+
+.dhleft {
+  width: 60%;
+  float: left;
+  background: royalblue;
+  margin-right: 10%;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  font-size: 25px;
+}
+
+.dhright {
+  width: 30%;
+  float: right;
+  background: royalblue;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.filterWrapper {
+  margin-top: 100px;
+  width: 100%;
+  border: 1px solid black;
+  position: relative;
+  padding: 10px 0px;
+}
+
+.titleSpan {
+  position: absolute;
+  transform: translateX(20px)translateY(-30px);
+  background: white;
+  font-size: 20px;
+  padding: 0 5px;
+  font-weight: 500;
+}
+
+.filtersUsers, .filtersCourses {
+  display: flex;
+  height: 100%;
+}
+
+.filtersCourses{
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filtersUsers div:nth-child(1) {
+  margin-left: 80px;
+  margin-right: 30px;
+}
+
+.filtersUsers div:last-child {
+  margin-left: auto;
+  margin-right: 50px;
+}
+
+.filtersUsers div, .filtersCourses div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filtersCourses div {
+  margin: 20px;
+}
+
+.filtersUsers div input, .filtersCourses div input {
+  outline: none;
+  padding: 8px;
+}
+
+.filtersUsers div input:focus, .filtersCourses div input:focus {
+  outline: none;
+}
+
+.table {
+  margin-top: 50px;
+}
+
+.table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table table tr {
+  border-bottom: 1px solid black;
+  height: 50px;
+}
+
+.table table tr:hover {
+  background: #457FAB;
+  transition: 0.15s;
+  color: white;
+}
+
+.table table td {
+  text-align: center;
+  font-size: 18px;
+  word-break: break-all;
+}
+
+
+.table table td img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.cancelButton {
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background: #457FAB;
+  color: white;
+  font-size: 16px;
+}
+
+.inputBox textarea {
+  width: -webkit-fill-available;
+  height: 100px;
+  border: 1px solid black;
+  resize: none;
+}
+
+.editNavigation {
+  display: flex;
+  margin: 20px 0px;
+  justify-content: center;
+  width: 100%;
+  font-size: 20px;
+  flex-wrap: wrap;
+}
+
+.editNavigation a {
+  text-decoration: none;
+}
+
+.editNavigation div {
+  padding: 20px;
+  margin: 0px 20px;
+  cursor: pointer;
+  color: black;
+}
+
+.activeEdit {
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+.cardImage {
+  width: 400px;
+  height: 200px;
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.myCourses {
+  overflow: auto;
+    margin-top: 70px;
+    width: 85%;
+    height: 700px;
+}
+
+.courseCard {
+  display: flex;
+  border-bottom: 1px solid black;
+  padding: 30px 0px;
+  max-height: 200px;
+  position: relative;
+}
+
+.courseInfoCard {
+  margin-left: 50px;
+  width: 100%;
+  overflow: auto;
+  height: 185px;
+}
+
+.infoSpan {
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+}
+
+.infoSpan h3 {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.infoSpan span {
+  font-size: 20px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  text-decoration: underline;
+}
+
+.infoSpan.description {
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.infoSpan.description span {
+  text-decoration: none;
+  margin-left: 0px;
+}
+
+.cardActions {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.searchFilter {
+  position: fixed;
+  width: 250px;
+  height: 100%;
+}
+
+.coursesResultWrapper {
+  position: relative;
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+.myCourses.search {
+  margin-top: 0px;
+  padding-top: 50px;
+  margin: 0 50px;
+  width: initial;
+}
+
+.searchFilter ul {
+  margin-top: 200px;
+  padding-left: 0px;
+}
+
+
+.searchFilter ul li {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  margin-top: 30px;
+}
+
+.searchFilter h2 {
+  color: black;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid black;
+  font-size: 25px;
+  font-weight: 600;
+  margin: 0 30px;
+  pointer-events: none;
+}
+
+.subNav {
+  font-size: 25px;
+  padding: 10px 0px;
+  padding-left: 20px;
+}
+
+.subNav div {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 1077px) {
+  .filtersUsers {
+    flex-wrap: wrap;
+  }
+
+  .filtersUsers div:nth-child(1) {
+    margin-left: 0px;
+    display: block;
+    margin-right: 0px;
+  }
+
+  .filtersUsers div {
+    display: block;
+    margin-right: 0px;
+    margin-top: 5px;
+  }
+
+  .filtersUsers div:last-child {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .filtersUsers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-items: center;
+  }
+}
+
+.popUpModel{
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  top: 20px;
+  background-color: #457FAB;
+  right: 0px;
+  border-radius: 20px;
+  display: none;
+}
+
+.popUpModel.active{
+  display: block;
+}
+
+.popUpModel h2{
+text-align: center;
+margin-top: 2px;
+margin-bottom: 5px;
+}
+
+.learnTask{
+  display: flex;
+  margin: 0 20px;
+  align-items: center;
+  color: white;
+  font-size: 16px;
+  line-height: 1.2;
+
+}
+
+.learnTask .learnTaskIcon{
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.enrollButton{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background: #2ecc71;
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: 5px;
+  height: 50px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+}
+
+.enrolledWrapper{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  width: 100%;
+  grid-gap: 20px;
+  justify-items: center;
+  margin-top: 100px;
+}
+
+.enrolledCard{
+  width: 90%;
+  min-height: 300px;
+  border: 1px solid black;
+}
+
+.enrolledCard h2{
+  margin-top: 5px;
+text-align: center;
+margin-bottom: 0px;
+}
+.enrolledCard .img{
+  width: 100%;
+  height: 200px;
+}
+
+.enrolledCard .img img{
+  width: 100%;
+  height: 100%;
+}
+
+.enrolledCard p{
+  word-break: break-all;
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 20px;
+}
+
+.chackBox{
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.studentInfo{
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+}
+
+.studentInfo h2{
+  text-align: center;
+  padding: 20px 0px;
+  color: white;
+}

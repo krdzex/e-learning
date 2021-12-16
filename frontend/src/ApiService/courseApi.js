@@ -40,8 +40,8 @@ const courseInfo = (id) => {
 }
 
 const deleteCourse = (id) => {
-    return fetch(`${url}/course/${id}`, {
-        method: "DELETE",
+    return fetch(`${url}/course/delete/${id}`, {
+        method: "PUT",
     }).then(response => response.json()).catch(err => console.log(err))
 }
 

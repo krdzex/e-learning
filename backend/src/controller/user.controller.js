@@ -36,7 +36,7 @@ const userInfo = (req, res) => {
 }
 
 const listUsers = (req, res) => {
-    User.find().select("-hashed_password -created -salt -updated -active -noOfCourses").then(user => {
+    User.find().select("-hashed_password -created -salt -updated -noOfCourses").then(user => {
         res.status(200).json(user)
     })
 }

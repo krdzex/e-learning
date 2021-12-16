@@ -304,7 +304,7 @@
   height: 100%;
 }
 
-.filtersCourses{
+.filtersCourses {
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -427,9 +427,9 @@
 
 .myCourses {
   overflow: auto;
-    margin-top: 70px;
-    width: 85%;
-    height: 700px;
+  margin-top: 70px;
+  width: 85%;
+  height: 700px;
 }
 
 .courseCard {
@@ -565,7 +565,7 @@
   }
 }
 
-.popUpModel{
+.popUpModel {
   position: absolute;
   width: 300px;
   height: 200px;
@@ -576,17 +576,17 @@
   display: none;
 }
 
-.popUpModel.active{
+.popUpModel.active {
   display: block;
 }
 
-.popUpModel h2{
-text-align: center;
-margin-top: 2px;
-margin-bottom: 5px;
+.popUpModel h2 {
+  text-align: center;
+  margin-top: 2px;
+  margin-bottom: 5px;
 }
 
-.learnTask{
+.learnTask {
   display: flex;
   margin: 0 20px;
   align-items: center;
@@ -596,12 +596,12 @@ margin-bottom: 5px;
 
 }
 
-.learnTask .learnTaskIcon{
+.learnTask .learnTaskIcon {
   font-size: 20px;
   margin-right: 5px;
 }
 
-.enrollButton{
+.enrollButton {
   justify-content: center;
   align-items: center;
   display: flex;
@@ -616,7 +616,7 @@ margin-bottom: 5px;
   cursor: pointer;
 }
 
-.enrolledWrapper{
+.enrolledWrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   width: 100%;
@@ -625,46 +625,89 @@ margin-bottom: 5px;
   margin-top: 100px;
 }
 
-.enrolledCard{
+.enrolledCard {
   width: 90%;
   min-height: 300px;
   border: 1px solid black;
+  position: relative;
 }
 
-.enrolledCard h2{
+.enrolledCard h2 {
   margin-top: 5px;
-text-align: center;
-margin-bottom: 0px;
+  text-align: center;
+  margin-bottom: 0px;
 }
-.enrolledCard .img{
+
+.enrolledCard .img {
   width: 100%;
   height: 200px;
 }
 
-.enrolledCard .img img{
+.enrolledCard .img img {
   width: 100%;
   height: 100%;
 }
 
-.enrolledCard p{
+.enrolledCard p {
   word-break: break-all;
   font-size: 18px;
   font-weight: 600;
   margin-left: 20px;
 }
 
-.chackBox{
+.chackBox {
   margin-left: 20px;
   margin-bottom: 10px;
 }
 
-.studentInfo{
+.studentInfo {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 20px;
 }
 
-.studentInfo h2{
+.studentInfo h2 {
   text-align: center;
   padding: 20px 0px;
   color: white;
+}
+
+.enrolledCard span {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 150px;
+  height: 150px;
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.enrolledCard span::before {
+  content: "Not Active";
+  position: absolute;
+  width: 150%;
+  height: 40px;
+  background-color: #f43648;
+  transform: rotate(-45deg)translateY(-20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.1em;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.enrolledCard span::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  bottom: 0;
+  left: 0;
+  background-color: #741c25;
+  z-index: -1;
+  box-shadow: 140px -140px #741c25;
 }

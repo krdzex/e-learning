@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { enrollStudentOnCourse, listCoursesByTitle } from '../ApiService/courseApi';
+import { courseInfo, enrollStudentOnCourse, listCoursesByTitle } from '../ApiService/courseApi';
 import authHelper from '../Auth/authHelper';
 import SearchFilter from './SearchFilter';
 
@@ -63,10 +63,17 @@ const SearchCourses = () => {
     }
 
     const enrollStudent = async (id) => {
+        let originalCoursesCopy = originalCourses.slice()
         let result = await enrollStudentOnCourse(id, authHelper.isAuthentcated()._id)
         console.log(result)
-        let newCourses = await listCoursesByTitle(input)
-        setOriginalCourses(newCourses)
+        for (let i = 0; i < originalCoursesCopy.length; i++) {
+            console.log(originalCoursesCopy[i])
+            if (originalCoursesCopy[i]._id === id) {
+                originalCoursesCopy[i] = await courseInfo(id)
+            }
+            console.log(originalCoursesCopy[i])
+        }
+        setOriginalCourses(originalCoursesCopy)
     }
 
     const isEnrollerd = (allEnrols) => {

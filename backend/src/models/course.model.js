@@ -9,7 +9,8 @@ const CourseSchema = new mongoose.Schema({
     },
     duration: { type: String, trim: true },
     author: { type: mongoose.Types.ObjectId },
-    students: [{student: mongoose.Types.ObjectId,status: String}],
+    students: [{ student: mongoose.Types.ObjectId, status: String }],
+    active: { type: Boolean, default: true },
     img: { type: String }
 })
 

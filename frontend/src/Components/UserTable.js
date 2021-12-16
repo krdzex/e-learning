@@ -9,17 +9,19 @@ const UserTable = () => {
     const [users, setUsers] = useState([])
     const [filteredUsers, setFilteredUsers] = useState([])
     useEffect(() => {
-        (async function () {
-            let users = await listUsers()
-            let filtered = users.filter(user => user._id !== authHelper.isAuthentcated()._id)
-            setUsers(filtered)
-            setFilteredUsers(filtered)
-        }())
+        getUsers()
     }, [])
+
+    const getUsers = async () => {
+        let users = await listUsers()
+        let filtered = users.filter(user => user._id !== authHelper.isAuthentcated()._id)
+        setUsers(filtered)
+        setFilteredUsers(filtered)
+    }
 
     const onDeleteClick = async (id) => {
         let result = await deleteUser(id, { admin: true });
-        console.log(result)
+        getUsers();
     }
 
 
@@ -65,6 +67,8 @@ const UserTable = () => {
         }
         setFilteredUsers(usersCopy)
     }, [values, users])
+
+    console.log(filteredUsers)
     return (
         <div className="table">
             <table>
@@ -89,7 +93,7 @@ const UserTable = () => {
                             <td>
                                 <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                                     <Link to={`/user/${user._id}`}><Icon icon="ci:edit" className="realIcon" style={{ color: "blue" }} /></Link>
-                                    <Icon icon="fluent:delete-48-filled" className="realIcon" style={{ color: "red" }} onClick={() => onDeleteClick(user._id)} />
+                                    {user.active === true && (<Icon icon="fluent:delete-48-filled" className="realIcon" style={{ color: "red" }} onClick={() => onDeleteClick(user._id)} />)}
                                 </div>
                             </td>
                         </tr>

@@ -17,7 +17,7 @@ const EnrolledCourses = () => {
         }
         dispatch(uncompletedCourses(data))
         setCourses(data)
-    },[dispatch])
+    }, [dispatch])
 
     useEffect(() => {
         getData()
@@ -36,12 +36,13 @@ const EnrolledCourses = () => {
     }
     useEffect(() => {
         dispatch(uncompletedCourses(courses))
-    }, [courses,dispatch])
+    }, [courses, dispatch])
 
     return (
         <div className='enrolledWrapper'>
             {courses.map((course, id) => (
                 <div className='enrolledCard' key={id}>
+                    {course.active === false && (<span></span>)}
                     <div className='img'>
                         <img src={process.env.PUBLIC_URL + `/images/${course.img}`} alt="img" />
                     </div>
@@ -51,7 +52,7 @@ const EnrolledCourses = () => {
                     <p>
                         Mentor Name: {course.author}
                     </p>
-                    <div className='chackBox'><input type="checkbox" checked={false} onClick={() => onCompleteClick(course)} readOnly={true} /> Completed</div>
+                    {course.active === true && (<div className='chackBox'><input type="checkbox" checked={false} onClick={() => onCompleteClick(course)} readOnly={true} /> Completed</div>)}
                 </div>
             ))}
         </div>

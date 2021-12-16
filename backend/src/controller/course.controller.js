@@ -36,14 +36,14 @@ const createCourse = (req, res) => {
 }
 
 const listCourses = (req, res) => {
-    Course.find().then(user => {
+    Course.find({ active: true }).then(user => {
         res.status(200).json(user)
     })
 }
 
 const getUserCourses = (req, res) => {
     let id = req.params.userId;
-    Course.find({ author: id }).then(user => {
+    Course.find({ author: id, active: true }).then(user => {
         res.status(200).json(user)
     })
 }
@@ -57,10 +57,9 @@ const courseInfo = (req, res) => {
 }
 
 const deleteCourse = async (req, res) => {
-    const deleteImg = promisify(fs.unlink)
     let id = req.params.courseId;
-    let course = await Course.findByIdAndDelete(id);
-    deleteImg(`../frontend/public/images/${course.img}`)
+    let course = await Course.findById(id);
+    course.active = false
     course.save((err, result) => {
         res.status(200).json({
             message: "Successfully deleted course!"
@@ -93,7 +92,7 @@ const updateCourse = async (req, res) => {
 
 const listCoursesByTitle = (req, res) => {
     let titleName = req.params.titleName;
-    Course.find({ title: titleName }).then(user => {
+    Course.find({ title: { $regex: new RegExp(`^${titleName}$`, 'i')}, active: true }).then(user => {
         res.status(200).json(user)
     })
 }

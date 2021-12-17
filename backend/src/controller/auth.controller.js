@@ -10,16 +10,16 @@ const signIn = (req, res) => {
                 password: "Email and password dont match",
             })
         }
+        if (user.active === false || user.role === "false") {
+            return res.status("401").json({ active: "Your account is not active!" })
+        }
+
         if (!user.authenticate(req.body.password)) {
             return res.status("401").json({
                 email: "Email and password dont match",
                 password: "Email and password dont match",
             })
         }
-        if (user.active === false || user.role === "false") {
-            return res.status("401").json({ active: "Your account is not active!" })
-        }
-
 
         const token = jwt.sign({ _id: user._id, user }, config.jwtSecret);
         res.cookie("t", token, {

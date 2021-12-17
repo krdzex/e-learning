@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { courseInfo, updateCourse } from '../ApiService/courseApi';
@@ -13,10 +14,17 @@ const EditCourse = () => {
     const [originalLevel, setOriginalLevel] = useState("")
     const [originalDuration, setOriginalDuration] = useState("")
     const [userInformation] = useState(authHelper.isAuthentcated())
+    const [coAuthors, setCoAuthors] = useState([])
+    const [coAuthorInput, setCoAuthorInput] = useState("")
+    const [possibleCoAuthors, setPossibleCoAuthors] = useState([])
+    const [possibleAuthors, setPossibleAuthors] = useState([])
+
+
     useEffect(() => {
         (async function () {
             let users = await listUsers()
             let allMentors = users.filter(user => user.role === "Mentor");
+            setPossibleAuthors(allMentors)
             setMentors(allMentors)
             let courseInformation = await courseInfo(courseId);
             let authorInfo = await userInfo(courseInformation.author);
@@ -29,6 +37,10 @@ const EditCourse = () => {
                 duration: courseInformation.duration,
                 author: courseInformation.author,
             })
+            for (let i = 0; i < courseInformation.coAuthors.length; i++) {
+                let fullInfo = await userInfo(courseInformation.coAuthors[i]);
+                setCoAuthors((prevState => [...prevState, fullInfo.firstName + " " + fullInfo.lastName]))
+            }
             setOriginalAuthor(courseInformation.author)
             setOriginalLevel(courseInformation.level)
             setOriginalDuration(courseInformation.duration)
@@ -62,17 +74,24 @@ const EditCourse = () => {
         formData.append("description", values.description)
         formData.append("level", values.level)
         formData.append("duration", values.duration)
-        if(userInformation.role === "Admin"){
+        for (var i = 0; i < mentors.length; i++) {
+            for (var j = 0; j < coAuthors.length; j++) {
+                if ((mentors[i].firstName + " " + mentors[i].lastName) === coAuthors[j]) {
+                    formData.append("coAuthors", mentors[i]._id)
+                }
+            }
+        }
+        if (userInformation.role === "Admin") {
             for (let i = 0; i < mentors.length; i++) {
                 if ((mentors[i].firstName + " " + mentors[i].lastName) === values.author) {
                     formData.append("author", mentors[i]._id)
                     break;
                 }
             }
-        }else{
+        } else {
             formData.append("author", userInformation._id)
         }
-        
+
         formData.append("img", values.img)
         updateCourse(courseId, formData).then(response => {
             if (firstTime) {
@@ -89,7 +108,7 @@ const EditCourse = () => {
 
     const onReleaseAuthor = () => {
         if (values.author === "") {
-            setValues({ ...values, role: originalAuthor })
+            setValues({ ...values, author: originalAuthor })
         }
     }
 
@@ -104,6 +123,34 @@ const EditCourse = () => {
         if (values.duration === "") {
             setValues({ ...values, duration: originalDuration })
         }
+    }
+
+    useEffect(() => {
+        let mentorsCopy = mentors.slice();
+        mentorsCopy = mentorsCopy.filter(mentor => mentor.firstName + " " + mentor.lastName !== values.author)
+        mentorsCopy = mentorsCopy.filter((mentor) => !coAuthors.includes(mentor.firstName + " " + mentor.lastName));
+        setPossibleCoAuthors(mentorsCopy)
+    }, [coAuthors, values.author])
+
+    useEffect(() => {
+        let possibleAuthorsCopy = mentors.slice();
+        possibleAuthorsCopy = possibleAuthorsCopy.filter((mentor) => !coAuthors.includes(mentor.firstName + " " + mentor.lastName));
+        setPossibleAuthors(possibleAuthorsCopy)
+    }, [possibleCoAuthors])
+
+
+
+    const onDeleteClick = (id) => {
+        setCoAuthors(coAuthors.filter((author, i) => i !== id))
+    }
+
+    const onAddCoAuthor = () => {
+        setCoAuthors((prevState) => [...prevState, coAuthorInput])
+        setCoAuthorInput("")
+    }
+
+    const onCoAuthorInputChange = (e) => {
+        setCoAuthorInput(e.target.value)
     }
 
 
@@ -164,12 +211,41 @@ const EditCourse = () => {
                                 }} onChange={onChange("author")} onBlur={() => onReleaseAuthor()} />
                                 <span>Author</span>
                                 <datalist id="author">
-                                    {mentors.map((mentor, id) => (
+                                    {possibleAuthors.map((mentor, id) => (
                                         <option value={mentor.firstName + " " + mentor.lastName} key={id} />
                                     ))}
                                 </datalist>
                                 <p>{errors.author}</p>
                             </div>)}
+                            <div className="wrapperAddForm" >
+                                <input type="text" list="coAuthors" onMouseDown={() => setCoAuthorInput("")} value={coAuthorInput} onKeyDown={(event) => {
+                                    event.preventDefault();
+                                }} onChange={(e) => onCoAuthorInputChange(e)} />
+                                <input type="button" value="Submit" onClick={() => onAddCoAuthor()} />
+                                <datalist id="coAuthors">
+                                    {possibleCoAuthors.map((mentor, id) => (
+                                        <option value={mentor.firstName + " " + mentor.lastName} key={id} />
+                                    ))}
+                                </datalist>
+                            </div>
+                            <div className="coAuthors">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>Co-Author Name</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {coAuthors.map((author, id) => (
+                                            <tr key={id}>
+                                                <td>{author}</td>
+                                                <td><Icon icon="fluent:delete-28-filled" style={{ fontSize: "20px", position: "relative", top: "3px", color: "red", cursor: "pointer" }} onClick={() => onDeleteClick(id)} /></td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                             <div className="buttons">
                                 <input type="submit" value="Update" />
                                 <Link to={userInformation.role === "Admin" ? "/dashboard/courses" : "/mentorDashboard"} className="cancelButton"> <div className="button">

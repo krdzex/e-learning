@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { createCourse } from '../ApiService/courseApi';
@@ -9,11 +10,21 @@ const AddCourse = () => {
 
     const [userInformations] = useState(authHelper.isAuthentcated())
     const [mentors, setMentors] = useState([])
+    const [coAuthors, setCoAuthors] = useState([])
+    const [coAuthorInput, setCoAuthorInput] = useState("")
+    const [possibleCoAuthors, setPossibleCoAuthors] = useState([])
+    const [possibleAuthors, setPossibleAuthors] = useState([])
+
+
+
+
     useEffect(() => {
         (async function () {
             let users = await listUsers()
-            let allMentors = users.filter(user => user.role === "Mentor");
+            let allMentors = users.filter(user => user.role === "Mentor" && user.active === true && user._id !== authHelper.isAuthentcated()._id);
+            setPossibleCoAuthors(allMentors)
             setMentors(allMentors)
+            setPossibleAuthors(allMentors)
         }())
     }, [])
     const [errors, setErrors] = useState({})
@@ -30,6 +41,7 @@ const AddCourse = () => {
         setValues({ ...values, [name]: event.target.value })
     }
 
+    
     const onChangeFile = (e) => {
         setValues({ ...values, img: e.target.files[0] })
     }
@@ -44,17 +56,24 @@ const AddCourse = () => {
         formData.append("description", values.description)
         formData.append("level", values.level)
         formData.append("duration", values.duration)
-        if(userInformations.role === "Admin"){
+        for (var i = 0; i < mentors.length; i++) {
+            for (var j = 0; j < coAuthors.length; j++) {
+                if ((mentors[i].firstName + " " + mentors[i].lastName) === coAuthors[j]) {
+                    formData.append("coAuthors", mentors[i]._id)
+                }
+            }
+        }
+        if (userInformations.role === "Admin") {
             for (let i = 0; i < mentors.length; i++) {
                 if ((mentors[i].firstName + " " + mentors[i].lastName) === values.author) {
                     formData.append("author", mentors[i]._id)
                     break;
                 }
             }
-        }else{
+        } else {
             formData.append("author", userInformations._id)
         }
-       
+
         formData.append("img", values.img)
         createCourse(formData).then(response => {
             if (firstTime) {
@@ -69,6 +88,31 @@ const AddCourse = () => {
         }).catch(err => console.log(err))
     }
 
+    const onDeleteClick = (id) => {
+        setCoAuthors(coAuthors.filter((author, i) => i !== id))
+    }
+
+    const onAddCoAuthor = () => {
+        setCoAuthors((prevState) => [...prevState, coAuthorInput])
+        setCoAuthorInput("")
+    }
+
+    const onCoAuthorInputChange = (e) => {
+        setCoAuthorInput(e.target.value)
+    }
+
+    useEffect(() => {
+        let mentorsCopy = mentors.slice();
+        mentorsCopy = mentorsCopy.filter(mentor => mentor.firstName + " " + mentor.lastName !== values.author)
+        mentorsCopy = mentorsCopy.filter((mentor) => !coAuthors.includes(mentor.firstName + " " + mentor.lastName));
+        setPossibleCoAuthors(mentorsCopy)
+    }, [coAuthors, values.author])
+
+    useEffect(() => {
+        let possibleAuthorsCopy = mentors.slice();
+        possibleAuthorsCopy = possibleAuthorsCopy.filter((mentor) => !coAuthors.includes(mentor.firstName + " " + mentor.lastName));
+        setPossibleAuthors(possibleAuthorsCopy)
+    }, [possibleCoAuthors])
 
     if (values.redirect) return <Navigate to={userInformations.role === "Admin" ? "/dashboard/courses" : "/mentorDashboard"} />
     return (
@@ -127,12 +171,41 @@ const AddCourse = () => {
                                 }} onChange={onChange("author")} />
                                 <span>Author</span>
                                 <datalist id="author">
-                                    {mentors.map((mentor, id) => (
+                                    {possibleAuthors.map((mentor, id) => (
                                         <option value={mentor.firstName + " " + mentor.lastName} key={id} />
                                     ))}
                                 </datalist>
                                 <p>{errors.author}</p>
                             </div>)}
+                            <div className="wrapperAddForm" >
+                                <input type="text" list="coAuthors" onMouseDown={() => setCoAuthorInput("")} value={coAuthorInput} onKeyDown={(event) => {
+                                    event.preventDefault();
+                                }} onChange={(e) => onCoAuthorInputChange(e)} />
+                                <input type="button" value="Submit" onClick={() => onAddCoAuthor()} />
+                                <datalist id="coAuthors">
+                                    {possibleCoAuthors.map((mentor, id) => (
+                                        <option value={mentor.firstName + " " + mentor.lastName} key={id} />
+                                    ))}
+                                </datalist>
+                            </div>
+                            <div className="coAuthors">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>Co-Author Name</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {coAuthors.map((author, id) => (
+                                            <tr key={id}>
+                                                <td>{author}</td>
+                                                <td><Icon icon="fluent:delete-28-filled" style={{ fontSize: "20px", position: "relative", top: "3px", color: "red", cursor: "pointer" }} onClick={() => onDeleteClick(id)} /></td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                             <div className="buttons">
                                 <input type="submit" />
                                 <Link to={userInformations.role === "Admin" ? "/dashboard/courses" : "/mentorDashboard"} className="cancelButton"> <div className="button">

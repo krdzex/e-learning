@@ -26,8 +26,8 @@ const EnrolledCourses = () => {
     const onCompleteClick = async (course) => {
         for (let i = 0; i < course.students.length; i++) {
             if (course.students[i].student === authHelper.isAuthentcated()._id) {
-                let result = await completeCourse(course._id, course.students[i]._id);
-                console.log(result)
+                await completeCourse(course._id, course.students[i]._id);
+                
                 break;
             }
         }

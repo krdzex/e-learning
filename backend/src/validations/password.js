@@ -9,8 +9,8 @@ module.exports = function validateRegistar(data) {
     data.confirmPassword = !isEmpty(data.confirmPassword) ? data.confirmPassword : ""
 
 
-    if (Validator.isEmpty(data.newPassword)) {
-        errors.newPassword = "New Password is required";
+    if (!Validator.isLength(data.password, { min: 5 })) {
+        errors.password = "Password need minimum five characters";
     }
     if (Validator.isEmpty(data.oldPassword)) {
         errors.oldPassword = "Old Password is required";

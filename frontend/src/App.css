@@ -89,6 +89,7 @@
 .card {
   max-width: 400px;
   width: 100%;
+  margin: 20px 0px;
 }
 
 .card form {
@@ -677,7 +678,7 @@
   left: -10px;
   width: 150px;
   height: 150px;
- 
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -710,4 +711,72 @@
   background-color: #741c25;
   z-index: -1;
   box-shadow: 140px -140px #741c25;
+}
+
+.coAuthors table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.coAuthors table thead {
+  position: sticky;
+  top: 0;
+}
+
+.coAuthors table thead td {
+  text-align: center;
+  font-weight: 700;
+  border-right: 1px solid black;
+  cursor: pointer;
+}
+
+.coAuthors table tbody td {
+  text-align: center;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.coAuthors table tbody td:last-child {
+  border-right: none
+}
+
+.coAuthors table thead td:last-child {
+  border-right: none;
+  width: 80px;
+}
+
+.coAuthors table thead tr {
+  border-bottom: 1px solid black;
+  height: 30px;
+  background-color: lightgray;
+}
+
+
+.coAuthors {
+  height: 150px;
+  border: 1px solid black;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+.wrapperAddForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  height: 30px;
+}
+
+.wrapperAddForm input[type="text"] {
+  max-width: 330px;
+  width: 100%;
+  height: 80%;
+}
+
+.wrapperAddForm input[type="button"] {
+  height: 100%;
+}
+
+.addCourseWrapper{
+  overflow: auto;
 }

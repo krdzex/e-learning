@@ -60,7 +60,6 @@ const SignIn = () => {
                         <input type="password" className={errors.password ? "error" : "success"} value={values.password} onChange={onChange("password")} />
                         <span>Password</span>
                         <p>{errors.password}</p>
-                        <p>{errors.active}</p>
                     </div>
                     <div className="buttons">
                         <input type="submit" />

@@ -64,14 +64,12 @@ const SearchCourses = () => {
 
     const enrollStudent = async (id) => {
         let originalCoursesCopy = originalCourses.slice()
-        let result = await enrollStudentOnCourse(id, authHelper.isAuthentcated()._id)
-        console.log(result)
+        await enrollStudentOnCourse(id, authHelper.isAuthentcated()._id)
+        
         for (let i = 0; i < originalCoursesCopy.length; i++) {
-            console.log(originalCoursesCopy[i])
             if (originalCoursesCopy[i]._id === id) {
                 originalCoursesCopy[i] = await courseInfo(id)
             }
-            console.log(originalCoursesCopy[i])
         }
         setOriginalCourses(originalCoursesCopy)
     }

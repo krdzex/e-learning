@@ -11,7 +11,8 @@ const CourseSchema = new mongoose.Schema({
     author: { type: mongoose.Types.ObjectId },
     students: [{ student: mongoose.Types.ObjectId, status: String }],
     active: { type: Boolean, default: true },
-    img: { type: String }
+    img: { type: String },
+    coAuthors: [{ type: mongoose.Types.ObjectId }]
 })
 
 export default mongoose.model("Course", CourseSchema)

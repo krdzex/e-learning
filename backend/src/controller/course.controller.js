@@ -43,7 +43,10 @@ const listCourses = (req, res) => {
 
 const getUserCourses = (req, res) => {
     let id = req.params.userId;
-    Course.find({ author: id, active: true }).then(user => {
+    Course.find({
+        $and: [{ active: true },
+        { $or: [{ author: id }, { coAuthors: id }] }]
+    }).then(user => {
         res.status(200).json(user)
     })
 }
@@ -92,7 +95,7 @@ const updateCourse = async (req, res) => {
 
 const listCoursesByTitle = (req, res) => {
     let titleName = req.params.titleName;
-    Course.find({ title: { $regex: new RegExp(`^${titleName}$`, 'i')}, active: true }).then(user => {
+    Course.find({ title: { $regex: new RegExp(`${titleName}`, 'i') }, active: true }).then(user => {
         res.status(200).json(user)
     })
 }

@@ -34,8 +34,11 @@ module.exports = function validateRegistar(data) {
     if (Validator.isEmpty(data.email)) {
         errors.email = "Email is required";
     }
-    if (Validator.isEmpty(data.password)) {
-        errors.password = "Password is required";
+    if (!Validator.isLength(data.password, { min: 5 })) {
+        errors.password = "Password need minimum five characters";
+    }
+    if (!Validator.isLength(data.confirmPassword, { min: 5 })) {
+        errors.confirmPassword = "Password need minimum five characters";
     }
     if (Validator.isEmpty(data.confirmPassword)) {
         errors.confirmPassword = "You need to confirm password";

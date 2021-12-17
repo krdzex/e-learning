@@ -19,9 +19,11 @@ const UserTable = () => {
         setFilteredUsers(filtered)
     }
 
-    const onDeleteClick = async (id) => {
-        let result = await deleteUser(id, { admin: true });
-        getUsers();
+    const onDeleteClick = async (id, positionId) => {
+        let usersCopy = users.slice()
+        await deleteUser(id, { admin: true });
+        usersCopy[positionId].active = false
+        setUsers(usersCopy)
     }
 
 
@@ -67,8 +69,6 @@ const UserTable = () => {
         }
         setFilteredUsers(usersCopy)
     }, [values, users])
-
-    console.log(filteredUsers)
     return (
         <div className="table">
             <table>
@@ -93,7 +93,7 @@ const UserTable = () => {
                             <td>
                                 <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                                     <Link to={`/user/${user._id}`}><Icon icon="ci:edit" className="realIcon" style={{ color: "blue" }} /></Link>
-                                    {user.active === true && (<Icon icon="fluent:delete-48-filled" className="realIcon" style={{ color: "red" }} onClick={() => onDeleteClick(user._id)} />)}
+                                    {user.active === true && (<Icon icon="fluent:delete-48-filled" className="realIcon" style={{ color: "red" }} onClick={() => onDeleteClick(user._id, id)} />)}
                                 </div>
                             </td>
                         </tr>

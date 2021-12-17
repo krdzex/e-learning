@@ -28,7 +28,7 @@ module.exports = function validateRegistar(data) {
     if (!Validator.isLength(data.lastName, { max: 30 })) {
         errors.lastName = "Last name is longer then 30 characters";
     }
-    if (!Validator.isEmail(data.email)) {
+    if (!/^[a-z0-9]((\.|\+)?[a-z0-9]){3,}\@([a-zA-Z0-9]+){3,}([\.])([a-zA-Z\.]+){2,}/.test(data.email)) {
         errors.email = "Email is invalid";
     }
     if (Validator.isEmpty(data.email)) {

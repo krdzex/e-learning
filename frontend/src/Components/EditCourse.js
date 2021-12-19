@@ -23,7 +23,7 @@ const EditCourse = () => {
     useEffect(() => {
         (async function () {
             let users = await listUsers()
-            let allMentors = users.filter(user => user.role === "Mentor");
+            let allMentors = users.filter(user => user.role === "Mentor" && user.active === true);
             setPossibleAuthors(allMentors)
             setMentors(allMentors)
             let courseInformation = await courseInfo(courseId);

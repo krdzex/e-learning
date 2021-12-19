@@ -2,7 +2,6 @@ import url from "../config/config.js"
 const headers = { "Accept": "application/json", "Content-Type": "application/json" };
 
 const createUser = (user) => {
-    console.log(user)
     return fetch(`${url}/register`, {
         method: "POST",
         headers: headers,

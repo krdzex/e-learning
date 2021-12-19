@@ -10,11 +10,8 @@ const signIn = (req, res) => {
                 password: "Email and password dont match",
             })
         }
-        if (user.active === false || user.role === "false") {
-            return res.status("401").json({ active: "Your account is not active!" })
-        }
 
-        if (!user.authenticate(req.body.password)) {
+        if (!user.authenticate(req.body.password) || user.active === false || user.role === "false") {
             return res.status("401").json({
                 email: "Email and password dont match",
                 password: "Email and password dont match",
